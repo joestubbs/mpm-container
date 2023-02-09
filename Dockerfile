@@ -52,8 +52,8 @@ RUN cd /home/cbgeo/ && git clone https://github.com/wdas/partio.git && \
 RUN mkdir -p /home/cbgeo/research && \
     cd /home/cbgeo/research && \
     git clone https://github.com/cb-geo/mpm.git && cd mpm && mkdir -p build && cd build && \
-    export CXX_COMPILER=mpicxx && \
-    cmake -GNinja -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_EXPORT_COMPILE_COMMANDS=On -DKAHIP_ROOT=/home/cbgeo/KaHIP/ -DPARTIO_ROOT=/home/cbgeo/partio/ .. && \
+    export CXX_COMPILER=g++ && \
+    cmake -GNinja -DCMAKE_CXX_COMPILER=g++ -DCMAKE_EXPORT_COMPILE_COMMANDS=On -DKAHIP_ROOT=/home/cbgeo/KaHIP/ -DPARTIO_ROOT=/home/cbgeo/partio/ .. && \
     ninja -j2
 
 # Clone benchmarks repo
