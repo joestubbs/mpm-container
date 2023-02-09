@@ -67,7 +67,10 @@ RUN mkdir -p /home/cbgeo/research && \
     cmake -GNinja -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_EXPORT_COMPILE_COMMANDS=On -DKAHIP_ROOT=/home/cbgeo/KaHIP/ -DPARTIO_ROOT=/home/cbgeo/partio/ .. && \
     ninja -j2
 
+# Clone benchmarks repo
+RUN cd /home/cbgeo/research && git clone https://github.com/cb-geo/mpm-benchmarks.git 
+
 # Done
-WORKDIR /home/cbgeo/mpm/build
+WORKDIR /home/cbgeo/research/mpm/build
 
 RUN ./mpm "$@"
