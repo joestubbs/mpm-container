@@ -38,18 +38,7 @@ RUN echo "source /opt/intel/mkl/bin/mklvars.sh intel64" >> ~/.bashrc
 
 # Configure MPI
 RUN echo "source /opt/intel/compilers_and_libraries_2020.2.254/linux/mpi/intel64/bin/mpivars.sh" >> ~/.bashrc
-
-# Load OpenMPI module
-#RUN source /etc/profile.d/modules.sh && export MODULEPATH=$MODULEPATH:/usr/share/modulefiles && module load mpi/openmpi-x86_64
-#ENV PATH="/usr/lib64/openmpi/bin/:${PATH}"
-
-
-# PETSc
-# RUN cd /home/cbgeo/ && git clone --depth 1 -b main https://gitlab.com/petsc/petsc.git petsc && \
-#    cd petsc && ./configure PETSC_DIR=/home/cbgeo/petsc/ --with-debugging=0 COPTFLAGS='-O3 -march=arch-linux2-c-opt -mtune=native' CXXOPTFLAGS='-O3 -march=arch-linux2-c-opt -mtune=native' && make PETSC_DIR=/home/cbgeo/petsc PETSC_ARCH=arch-linux-c-opt all -j2 && \
-#    make PETSC_DIR=/home/cbgeo/petsc PETSC_ARCH=arch-linux-c-opt check
-#ENV PETSC_ARCH=arch-linux-c-opt
-#ENV PETSC_DIR=/home/cbgeo/petsc/
+RUN source /opt/intel/compilers_and_libraries_2020.2.254/linux/mpi/intel64/bin/mpivars.sh
 
 # KaHIP
 RUN cd /home/cbgeo/ && git clone https://github.com/schulzchristian/KaHIP.git && \
