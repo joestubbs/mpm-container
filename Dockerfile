@@ -60,11 +60,17 @@ RUN cd /home/cbgeo/ && git clone https://github.com/wdas/partio.git && \
     cd partio && cmake . && make
 
 # Create a research directory and clone git repo of mpm code
-#RUN mkdir -p /home/cbgeo/research && \
-#    cd /home/cbgeo/research && \
-#    git clone https://github.com/cb-geo/mpm.git
+RUN mkdir -p /home/cbgeo/research && \
+    cd /home/cbgeo/research && \
+    git clone https://github.com/cb-geo/mpm.git && cd mpm && mkdir -p build && cd build && \
+    source /etc/profile.d/modules.sh && \
+    export MODULEPATH=$MODULEPATH:/usr/share/modulefiles && \
+    module load mpi/openmpi-x86_64 && \
+    export CXX_COMPILER=mpicxx && \
+    cmake -GNinja -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_EXPORT_COMPILE_COMMANDS=On -DKAHIP_ROOT=/home/cbgeo/KaHIP/ -DPARTIO_ROOT=/home/cbgeo/partio/ .. && \
+    ninja -j2
 
 # Done
-WORKDIR /home/cbgeo/research/mpm
+WORKDIR /home/cbgeo/mpm/build
 
-RUN /bin/bash "$@"
+RUN ./mpm "$@"
