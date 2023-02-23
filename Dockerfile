@@ -63,5 +63,9 @@ RUN cd /home/cbgeo/research && git clone https://github.com/cb-geo/mpm-benchmark
 
 # Done
 WORKDIR /home/cbgeo/research/mpm/build
-
-RUN source /opt/intel/compilers_and_libraries_2020.2.254/linux/mpi/intel64/bin/mpivars.sh  && ./mpm "$@"
+ADD entrypoint.sh /home/cbgeo/research/mpm/build/
+USER root
+RUN chmod 777 -R /home/cbgeo
+USER cbgeo
+#RUN chmod +x /home/cbgeo/research/mpm/build/entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]
