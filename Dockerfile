@@ -1,3 +1,5 @@
+# Image: tapis/mpm
+
 FROM fedora:32
 MAINTAINER Krishna Kumar <krishnak@utexas.edu>
 
@@ -63,9 +65,18 @@ RUN cd /home/cbgeo/research && git clone https://github.com/cb-geo/mpm-benchmark
 
 # Done
 WORKDIR /home/cbgeo/research/mpm/build
-ADD entrypoint.sh /home/cbgeo/research/mpm/build/
+
+# Tapis things ----
 USER root
 RUN chmod 777 -R /home/cbgeo
+RUN mkdir -p /TapisInput
+RUN mkdir -p /TapisOutput/results
+RUN chmod 777 -R /TapisInput
+RUN chmod 777 -R /TapisOutput
+ADD entrypoint.sh /home/cbgeo/research/mpm/build/
+RUN chmod 777 /home/cbgeo/research/mpm/build/entrypoint.sh
+
+
 USER cbgeo
 #RUN chmod +x /home/cbgeo/research/mpm/build/entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
